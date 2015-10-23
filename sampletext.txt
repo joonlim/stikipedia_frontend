@@ -1,0 +1,48 @@
+==Modern programming==
+
+===Quality requirements===
+Whatever the approach to development may be, the final program must satisfy some fundamental properties. The following properties are among the most relevant:
+*[[Reliability engineering#Software reliability|Reliability]]: how often the results of a program are correct. This depends on conceptual correctness of algorithms, and minimization of programming mistakes, such as mistakes in resource management (e.g., [[buffer overflow]]s and [[race condition]]s) and logic errors (such as division by zero or [[off-by-one error]]s).
+*[[Robustness (computer science)|Robustness]]: how well a program anticipates problems due to errors (not bugs). This includes situations such as incorrect, inappropriate or corrupt data, unavailability of needed resources such as memory, operating system services and network connections, user error, and unexpected power outages.
+*[[Usability]]: the [[ergonomics]] of a program: the ease with which a person can use the program for its intended purpose or in some cases even unanticipated purposes. Such issues can make or break its success even regardless of other issues. This involves a wide range of textual, graphical and sometimes hardware elements that improve the clarity, intuitiveness, cohesiveness and completeness of a program's user interface.
+*[[Software portability|Portability]]: the range of [[computer hardware]] and [[operating system]] platforms on which the source code of a program can be [[compiled]]/[[interpreter (computing)|interpreted]] and run. This depends on differences in the programming facilities provided by the different platforms, including hardware and operating system resources, expected behavior of the hardware and operating system, and availability of platform specific compilers (and sometimes libraries) for the language of the source code.
+*[[Maintainability]]: the ease with which a program can be modified by its present or future developers in order to make improvements or customizations, fix [[Software bug|bugs]] and [[Vulnerability (computing)|security holes]], or adapt it to new environments. Good practices during initial development make the difference in this regard. This quality may not be directly apparent to the end user but it can significantly affect the fate of a program over the long term.
+*[[Algorithmic efficiency|Efficiency]]/[[performance engineering|performance]]: the amount of system resources a program consumes (processor time, memory space, slow devices such as disks, network bandwidth and to some extent even user interaction): the less, the better. This also includes careful management of resources, for example cleaning up [[temporary file]]s and eliminating [[memory leak]]s.
+
+===Readability of source code===
+In computer programming, [[readability]] refers to the ease with which a human reader can comprehend the purpose, control flow, and operation of source code. It affects the aspects of quality above, including portability, usability and most importantly maintainability.
+
+Readability is important because programmers spend the majority of their time reading, trying to understand and modifying existing source code, rather than writing new source code. Unreadable code often leads to bugs, inefficiencies, and [[Code duplication|duplicated code]]. A study<ref>James L. Elshoff, Michael Marcotty, [http://doi.acm.org/10.1145/358589.358596 Improving computer program readability to aid modification], Communications of the ACM, v.25 n.8, p.512-521, Aug 1982.</ref> found that a few simple readability transformations made code shorter and drastically reduced the time to understand it.
+
+Following a consistent [[programming style]] often helps readability. However, readability is more than just programming style. Many factors, having little or nothing to do with the ability of the computer to efficiently compile and execute the code, contribute to readability. Some of these factors include:
+*Different [[indentation style]]s (whitespace)
+*[[Comment (computer programming)|Comments]]
+*[[decomposition (computer science)|Decomposition]]
+*[[Naming conventions (programming)|Naming conventions]] for objects (such as variables, classes, procedures, etc.)
+
+Various [[visual programming language]]s have also been developed with the intent to resolve readability concerns by adopting non-traditional approaches to code structure and display. Techniques like [[Code refactoring]] can enhance readability.
+
+===Algorithmic complexity===
+The academic field and the engineering practice of computer programming are both largely concerned with discovering and implementing the most efficient algorithms for a given class of problem. For this purpose, algorithms are classified into ''orders'' using so-called [[Big O notation]], which expresses resource use, such as execution time or memory consumption, in terms of the size of an input. Expert programmers are familiar with a variety of well-established algorithms and their respective complexities and use this knowledge to choose algorithms that are best suited to the circumstances.
+
+===Methodologies===
+The first step in most formal software development processes is requirements analysis, followed by testing to determine value modeling, implementation, and failure elimination (debugging). There exist a lot of differing approaches for each of those tasks. One approach popular for [[requirements analysis]] is [[Use Case]] analysis. Many programmers use forms of [[Agile software development]] where the various stages of formal software development are more integrated together into short cycles that take a few weeks rather than years. There are many approaches to the Software development process.
+
+Popular modeling techniques include Object-Oriented Analysis and Design ([[OOAD]]) and Model-Driven Architecture ([[Model-Driven Architecture|MDA]]). The Unified Modeling Language ([[Unified Modeling Language|UML]]) is a notation used for both the OOAD and MDA.
+
+A similar technique used for database design is Entity-Relationship Modeling ([[Entity-Relationship Model|ER Modeling]]).
+
+Implementation techniques include imperative languages ([[Object-oriented programming|object-oriented]] or [[procedural programming|procedural]]), [[functional programming|functional languages]], and [[logic programming|logic languages]].
+
+===Measuring language usage===
+{{Main|Measuring programming language popularity}}
+It is very difficult to determine what are the most popular of modern programming languages. Methods of measuring programming language popularity include: counting the number of job advertisements that mention the language,<ref>[http://www.computerweekly.com/Articles/2007/09/11/226631/sslcomputer-weekly-it-salary-survey-finance-boom-drives-it-job.htm Survey of Job advertisements mentioning a given language]</ref> the number of books sold and courses teaching the language (this overestimates the importance of newer languages), and estimates of the number of existing lines of code written in the language (this underestimates the number of users of business languages such as COBOL).
+
+Some languages are very popular for particular kinds of applications, while some languages are regularly used to write many different kinds of applications. For example, [[COBOL]] is still strong in corporate data centers often on large [[mainframe computer]]s, [[Fortran]] in engineering applications, [[scripting language]]s in [[World Wide Web|Web]] development, and [[C (programming language)|C]] in [[embedded software]]. Many applications use a mix of several languages in their construction and use.  New languages are generally designed around the syntax of a prior language with new functionality added, (for example [[C++]] adds object-orientation to C, and Java adds memory management and [[bytecode]] to C++, but as a result, loses efficiency and the ability for low-level manipulation).
+
+===Debugging===
+[[File:H96566k.jpg|thumb|The [[Software bug|bug]] from 1947 which is at the origin of a popular (but incorrect) etymology for the common term for a software defect.]]
+{{main|Debugging}}
+Debugging is a very important task in the software development process since having defects in a program can have significant consequences for its users. Some languages are more prone to some kinds of faults because their specification does not require compilers to perform as much checking as other languages. Use of a [[static code analysis]] tool can help detect some possible problems.
+
+Debugging is often done with [[Integrated development environment|IDE]]s like [[Eclipse (software)|Eclipse]], [[Visual Studio]], [[Kdevelop]], [[NetBeans]] and [[Code::Blocks]]. Standalone debuggers like [[gdb]] are also used, and these often provide less of a visual environment, usually using a [[command line]].

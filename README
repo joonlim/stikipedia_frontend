@@ -1,0 +1,112 @@
+Stikipedia
+
+How to set up Stikipedia on Linux
+---------------------------------
+
+If you have apache2, clone the repo into /var/www/html. The directory will be called /stikipedia. If not, clone elsewhere, install apache2, then move to /stiki to /var/www/html. This is the only way we can view our site. 
+
+After cloning, check to see if it worked by typing localhost/stikipedia/edit_page.html in a browser.
+
+1.  Check if Apache2 is installed on server. To check type 'localhost' into a browser's url and see if it works.
+
+    If not, type:
+
+    	sudo apt-get update
+    	sudo apt-get install apache2
+
+    Now check to see if it works by typing 'localhost' or '127.0.0.1' into a browser and checking if it takes you to a page that says "it works!".
+
+    apache2 commands(you may want to create aliases):
+
+    	sudo /etc/init.d/apache2 start   :  start server
+    	sudo /etc/init.d/apache2 stop    :  stop server
+    	sudo /etc/init.d/apache2 restart :  restart server
+
+    Now the /var/www/html directory should exist. This directory is in the root and you can only access files with the sudo command.
+
+    You may need to give the files permission for Bootstrap to work properly.
+
+    If Bootstrap is not working, go to /var/www/html/stikipedia/ in the terminal and run the command:
+
+    	find . -type d -exec chmod +rx {} \;
+
+    This command recursively gives all folders/files permissions, which allows bootstrap files to be read. The reason this must be done is because the /var folder is in the root.
+
+2.  Now make sure php is installed by typing in terminal:
+
+    	php -r "Print \"Hello, World!\";"
+
+    If the output is not correct, you must install php with the command:
+
+    	sudo apt-get update #if you didnt before
+    	sudo apt-get install php5 libapache2-mod-php5
+
+    Now type to restart the server:
+
+    	sudo /etc/init.d/apache2 restart
+
+    Congratulations! You can now add .php files to the /var/www/html/ folder and open them in an enabled browser by typing 'localhost/file.php'. 
+
+    Basically replace '/var/www/html' with 'localhost' to view php content in the browser..
+
+Now that we have everything set up, clone the repo if you did not before or move the repo into the /var/www/html/folder. The site should work! Again, check with:
+	
+	localhost/stikipedia/
+
+3. Now we have to set up our configuration to allow support for the API/.htaccess file. The purpose of this file is to redirect any URL patterned "/API/Title" to /API/?title=Title".
+
+    First, configure Apache mod_rewrite
+
+        sudo a2enmod rewrite
+
+    Open file as
+
+        sudo vim /etc/apache2/apache2.conf
+
+    Now find the line where there is 
+
+        <Directory /var/www/>
+                 Options Indexes FollowSymLinks
+                 AllowOverride None
+                 Require all granted
+        </Directory>
+
+    and replace "None" with All" to make it look like
+
+        AllowOverride All
+
+    Don't forget to restart apache.
+
+        /etc/init.d/apache2 restart
+
+4. The last thing we need to install for our project to work is MySQL and PhpMyAdmin.
+    
+    Type the command:
+
+        sudo apt-get install mysql-server
+
+    If you don't choose a password it defaults to "root".
+
+    Once that finishes type:
+
+        sudo apt-get install libapache2-mod-auth-mysql php5-mysql phpmyadmin
+
+    The web server that should be automatically configured to run phpMyAdmin is 'apache2'.
+
+    Select <Yes> for the next step. Now choose a password for phpMyAdmin(empty means password is set to 'root' again).
+
+    Now we should set a link to /phpmyadmin from the apache server:
+
+        sudo ln -s /usr/share/phpmyadmin /var/www/phpmyadmin
+
+    Check to see that it worked by going to 'localhost/phpmyadmin' in a browser.
+
+    Restart again.
+
+        /etc/init.d/apache2 restart
+
+
+How to set up Stikipedia on Windows/Mac
+---------------------------------------
+
+No clue. Good luck!
