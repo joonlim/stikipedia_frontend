@@ -13,7 +13,7 @@
 	include ("rpc_client.php");
 
 	// The file that contains the ip of the message broker in the first line.
-	static $file = "/var/www/html/stiki_front/API/broker_ip.txt";
+	static $file = "/var/www/html/stiki_front/API/broker.txt";
 
 	class MessageHandler {
 
