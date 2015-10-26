@@ -102,7 +102,7 @@
 		// }
 
 		// deliver_response($status, $title, $reason);
-		$msg = MessageHandler::send_POST_msg($post_data);
+		$msg = MessageHandler::send_modify_msg($title, $body);
 		echo $msg;
 //////////////////////////////////////////////////////////////////////////////
 	}
