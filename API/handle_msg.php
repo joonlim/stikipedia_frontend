@@ -9,11 +9,15 @@
 	$queue_get_formatted = "front_get_formatted";	// queue for get formatted article body
 	$queue_modify = "front_modify";				// queue for modify/add article
 	$queue_rename = "front_rename";				// queue for rename article
+	$queue_GET = "front_GET_REST";
+	$queue_POST = "front_POST_REST";
 
 	include ("rpc_client.php");
 
 	// The file that contains the ip of the message broker in the first line.
-	static $file = "/var/www/html/stiki_front/API/broker.txt";
+	static $file = "/var/www/html/stiki/front_end/API/broker.txt"; // on Joon's computer
+	#static $file = "/var/www/html/API/broker.txt";
+	#static $file = "/var/www/html/grading/API/broker.txt";
 
 	class MessageHandler {
 
@@ -95,6 +99,43 @@
 		    );
 
 		    return MessageHandler::basic_send_msg($queue_rename, json_encode($data));
+		}
+
+		/**
+		 * Send a GET REST call request to a message broker and wait for response.
+		 * Receive message in form {"title":"$title","body":"$body"}.
+		 * 
+		 * @param  [string] $title The title of an article we want the body of.
+		 * @return [string]        {"title":"$title","body":"$body"}
+		 */
+		public static function send_GET_msg($title) {
+			global $queue_GET;
+
+			return MessageHandler::basic_send_msg($queue_GET, $title);
+		}
+
+		/**
+		 * Send a POST REST call request to a message broker and wait for response.
+		 * Receive message in form {"title":"$title","body":"$body"}.
+		 *
+		 * This is to update the body of an article or create a new article.
+		 * 
+		 * @param  [string] $data JSON style string formatted in this way:
+		 *                        {"data": {"title":"$title", "body":"$body"}}
+		 * @return [string]        {"status":"$status", "reason":"$reason"}
+		 */
+		public static function send_POST_msg($data) {
+			global $queue_POST;
+
+			// dynamically check if $data is an array or already a string
+			$msg;
+
+			if (is_string($data))
+				$msg = $data;
+			else
+				$msg = json_encode($data);
+
+			return MessageHandler::basic_send_msg($queue_POST, $msg);
 		}
 
 		/**

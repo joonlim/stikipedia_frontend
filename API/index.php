@@ -29,7 +29,7 @@
 	// process client request (via URL)
 	header("Content-Type:application/json");
 	// include("connection.php");
-	include ("API/handle_msg.php");
+	include ("handle_msg.php");
 
 	if ($_SERVER['REQUEST_METHOD'] === 'POST')
 		$post_data = $_POST['data'];
@@ -89,18 +89,20 @@
 
 		// add to db / update entry
 //////////////////////////////////////////////////////////////////////////////
-		$status = MessageHandler::send_modify_msg($title, $body);
 		// $status = $db_manager->set_content($title, $body);
+
+		// $reason = NULL;
+
+		// // failures
+		// if ($status == "0") {
+		// 	$reason = "Title has invalid characters.";
+		// 	$status = "FAILED"; 
+		// }
+
+		// deliver_response($status, $title, $reason);
+		$msg = MessageHandler::send_POST_msg($post_data);
+		echo $msg;
 //////////////////////////////////////////////////////////////////////////////
-		$reason = NULL;
-
-		// failures
-		if ($status == "0") {
-			$reason = "Title has invalid characters.";
-			$status = "FAILED"; 
-		}
-
-		deliver_response($status, $title, $reason);
 	}
 
 	// GET request
@@ -109,11 +111,13 @@
 		$title = $_GET['title'];
 		$title = ucwords($title);
 //////////////////////////////////////////////////////////////////////////////
-		$body = MessageHandler::send_get_raw_msg($title);
+		$msg = MessageHandler::send_GET_msg($title);
+		echo $msg;
+		// $body = MessageHandler::send_get_raw_msg($title);
 		// $body = $db_manager->get_body($title);
-//////////////////////////////////////////////////////////////////////////////
 
-		deliver_response(NULL, $title, $body);
+		//deliver_response(NULL, $title, $body);
+//////////////////////////////////////////////////////////////////////////////
 	}
 
 	// ERROR
