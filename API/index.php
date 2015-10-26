@@ -43,7 +43,9 @@
 
 		$title = $data['title'];
 		$title = RegExUtilities::replace_underscores($title);
-		$title = ucwords($title);
+
+		// lower case all, then upper case first letter of each word
+		$title = ucwords(strtolower($title));
 
 		$body = $data['body'];
 
@@ -109,7 +111,7 @@
 	else if($_GET['title']) {
 		
 		$title = $_GET['title'];
-		$title = ucwords($title);
+		$title = ucwords(strtolower($title));
 //////////////////////////////////////////////////////////////////////////////
 		$msg = MessageHandler::send_GET_msg($title);
 		echo $msg;
