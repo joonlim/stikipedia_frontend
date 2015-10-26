@@ -31,13 +31,15 @@
 	// include("connection.php");
 	include ("handle_msg.php");
 
+    $post_data = "";
+
 	if ($_SERVER['REQUEST_METHOD'] === 'POST')
 		$post_data = $_POST['data'];
 
 	// $db_manager = DataManager::get_instance();
 
 	// POST request
-	if(trim($post_data)) {
+	if(trim($post_data) != "") {
 		// decode json
 		$data = json_decode($post_data, true);
 
@@ -110,7 +112,7 @@
 	// GET request
 	else if($_GET['title']) {
 		
-		$title = $_GET['title'];
+        $title = $_GET['title'];
 		$title = ucwords(strtolower($title));
 //////////////////////////////////////////////////////////////////////////////
 		$msg = MessageHandler::send_GET_msg($title);
@@ -125,7 +127,7 @@
 	// ERROR
 	else {
 		// throw invalid request
-		deliver_response(NULL, $title, NULL);
+		echo "null";
 	}
 
 ?>
