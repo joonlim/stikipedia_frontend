@@ -64,64 +64,7 @@
 <div class="container theme-showcase" role="main">
 
   <?php 
-  function format_content($content, $title) {
-
-      # === Header ===
-      $content = preg_replace("(===(.*?)===)", "<h4>\\1</h4>", $content);
-
-      # == Header ==
-      # <hr>
-      $content = preg_replace("(==(.*?)==)", "<h3>\\1<hr></h3>", $content);
-
-      # = Header =
-      # <hr>
-      $content = preg_replace("(=(.*?)=)", "<h2>\\1<hr></h2>", $content);
-
-      # [[Title#Section|Label]]
-      $content = preg_replace("(\[\[([^\]\]]*?)[#]([^\]\]]*?)[|]([^\]\]]*?)\]\])", "<a href=\"\\1#\\2\">\\3</a>", $content);
-
-      # [[Title#Section]]
-      $content = preg_replace("(\[\[([^\]\]]*?)[#]([^\]\]]*?)\]\])", "<a href=\"\\1#\\2\">\\2</a>", $content); 
-
-      # [[Title|Label]]
-      $content = preg_replace("(\[\[([^\]\]]*?)[|]([^\]\]]*?)\]\])", "<a href=\"\\1\">\\2</a>", $content); 
-
-      # [[Title]]
-      $content = preg_replace("(\[\[([^\]\]]*?)\]\])", "<a href=\"\\1\">\\1</a>", $content); 
-
-      # replace spaces in hrefs with '_'
-      /*
-      pattern details:
-    
-      ~
-      (?>                     # open an atomic group (*)
-        \bhref\s*=\s*["\']  # attribute name until the quote
-        |                     # OR
-        \G(?<!^)            # contiguous to a precedent match
-      )                       # close the atomic group
-      [^ "\']*+               # content that is not a space or quotes (optional) 
-      \K                      # resets the start of the match from match result
-      [ ]                     # a space
-      ~
-    
-      */
-      $content = preg_replace('~(?>\bhref\s*=\s*["\']|\G(?<!^))[^ "\']*+\K ~', "_", $content); # title
-
-      # new lines
-      $content = preg_replace("(\n)", "</p><p>", $content);
-
-      # escape single quotes
-      $content = preg_replace("(`)", "'", $content);
-
-      $content = preg_replace("('''(.*?)''')", "<strong>\\1</strong>", $content);
-
-      $content = "<div class=\"page-header\"><h1><strong>$title</strong></h1></div>\n" . $content;
-
-      return $content;
-  }
-
   // Start of script
-  include ("API/connection.php");
   include ("API/handle_msg.php");
 
   if ($_SERVER['REQUEST_METHOD'] === 'POST')
