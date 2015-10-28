@@ -79,7 +79,16 @@
 		// $result = $db_manager->mongo_search($search_term);
     $result = MessageHandler::send_search_msg($search_term);
 
-		echo $result;
+     echo $result;
+    // $result will contain "0 results found"
+    if (strpos($result, "0 results found") !== false) {
+        echo "<div class='jumbotron'>
+        			<h1>Add New Page Named: <label style='color:blue'><a href=\"edit_page.php?title=$search_term&new=true\">$search_term</html></labek></h1>
+			      </div>";
+        $button_text = "Create Page";
+        echo "<a href=\"edit_page.php?title=$search_term&new=true\"><button type=\"submit\"
+					class=\"btn btn-md btn-danger\">$button_text</button></a>";
+    }
 	?>
 
  </div>
