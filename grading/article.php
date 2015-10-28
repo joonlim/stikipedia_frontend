@@ -47,7 +47,7 @@
 
        <form class="navbar-form text-center" action="search_results.php"  method="get" onsubmit="if (document.getElementById('text').value.length < 1) return false;">
         <div class="input-group">
-         <input type="text" id="text" name="title" class="form-control" placeholder="Search..." style="width:500px">
+         <input type="text" id="text" name="search" class="form-control" placeholder="Search..." style="width:500px">
          <span class="input-group-btn">
           <button class="btn btn-default" type="submit">
             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -65,22 +65,15 @@
 
   <?php 
 
-    /**
-     * Refines title to replace underscores with spaces and to be lowercase the
-     * first letter of every word.
-     */
-    function refine_title($string) {
 
-      $string = ucwords(strtolower($string));
-
-      return preg_replace("(_)", " ", $string);
-    }
 
   // Start of script
   include ("API/handle_msg.php");
 
+  $new_body = "";
+
   if ($_SERVER['REQUEST_METHOD'] === 'POST')
-      $new_body = $_POST['content'];
+      $new_body = $_POST['body'];
 
   $title = $_GET['title'];
 
@@ -97,29 +90,29 @@
   // Check if there is a GET request to get the body of an article.
   if($title) {
 //////////////////////////////////////////////////////////////////////////////
-      $content = MessageHandler::send_get_formatted_msg($title);
+      $body = MessageHandler::send_get_formatted_msg($title);
     
       // // Uppercase first letter of every word in the title.
       $refined_title = refine_title($title);
 
       // $db_manager = DataManager::get_instance();
-      // $content = $db_manager->get_body($refined_title);
+      // $body = $db_manager->get_body($refined_title);
 
-      if($content && $content != "NULL"){
+      if($body && $body != "NULL"){
 
           print "<div class=\"page-header\"><h1><strong>$refined_title</strong></h1></div>\n";
 
-          // $content = format_content($content, $refined_title);
+          // $body = format_content($body, $refined_title);
           $button_text = "Edit Page";
 
       } else {
 
-          $content = "<h2>The page '$refined_title' does not exist yet. Why don't you create it?</h2>";
+          $body = "<h2>The page '$refined_title' does not exist yet. Why don't you create it?</h2>";
           $button_text = "Create Page";
 
       }
 //////////////////////////////////////////////////////////////////////////////
-      print $content;
+      print $body;
   }
 
   print("<br/><hr>\n");

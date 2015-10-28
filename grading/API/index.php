@@ -25,10 +25,8 @@
 		echo $json_response;
 	}
 
-
 	// process client request (via URL)
 	header("Content-Type:application/json");
-	include("connection.php");
 	include ("handle_msg.php");
 
     $post_data = "";
@@ -44,10 +42,7 @@
 		$data = json_decode($post_data, true);
 
 		$title = $data['title'];
-		$title = RegExUtilities::replace_underscores($title);
-
-		// lower case all, then upper case first letter of each word
-		$title = ucwords(strtolower($title));
+		$title = refine_title($title);
 
 		$body = $data['body'];
 
@@ -61,10 +56,10 @@
 			deliver_response("FAILED", NULL, "To add a new entry, the value of /API/Title must match 'title' in the POSTed JSON object.");
 			return;
 		} else {
-			$titleGET = RegExUtilities::replace_underscores($titleGET);
+			$titleGET = refine_title($titleGET);
 
 			// titles much match
-			if (!(strtolower($titleGET) === strtolower($title))) {
+			if (!($titleGET === $title)) {
 				deliver_response("FAILED", NULL, "To add a new entry, the value of /API/Title must match 'title' in the POSTed JSON object.");
 				return;
 			}
@@ -113,11 +108,10 @@
 	else if($_GET['title']) {
 		
         $title = $_GET['title'];
-		$title = ucwords(strtolower($title));
+		$title = refine_title($title);
 //////////////////////////////////////////////////////////////////////////////
 		$msg = MessageHandler::send_GET_msg($title);
 		echo $msg;
-		// $body = MessageHandler::send_get_raw_msg($title);
 		// $body = $db_manager->get_body($title);
 
 		//deliver_response(NULL, $title, $body);

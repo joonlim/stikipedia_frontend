@@ -29,6 +29,16 @@
 
 <body>
 
+<?php
+// Start of script
+include ("API/handle_msg.php");
+
+// Get search term and current working DB
+$search_term = $_GET['search'];
+// $db_manager = DataManager::get_instance();
+
+?>
+
   <!-- Fixed navbar -->
   <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -45,9 +55,9 @@
       <div class="navbar-collapse collapse" id="navbar">
 
 
-       <form class="navbar-form text-center" action="search_results.php"  method="get" onsubmit="if (document.getElementById('text').value.length < 1) return false;">
+       <form class="navbar-form text-center" action="search_results.php" method="get" onsubmit="if (document.getElementById('text').value.length < 1) return false;">
         <div class="input-group">
-         <input type="text" id="text" name="title" class="form-control" placeholder="Search..." value="<?php echo $search_term; ?>" style="width:500px">
+         <input type="text" id="text" name="search" class="form-control" placeholder="Search..." value="<?php echo $search_term; ?>" style="width:500px">
          <span class="input-group-btn">
           <button class="btn btn-default" type="submit">
             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -63,30 +73,21 @@
 
 <div class="container theme-showcase" role="main">
 
-<?php
-  // Start of script
-  // include ("API/connection.php");
-  include ("API/handle_msg.php");
-  
-  // Get search term and current working DB
-  $search_term = $_GET['title'];
-  // $db_manager = DataManager::get_instance();
-   
-?>
-
-
 	<?php
 		// $result = $db_manager->mongo_search($search_term);
     $result = MessageHandler::send_search_msg($search_term);
 
-     echo $result;
+    echo $result;
+
     // $result will contain "0 results found"
     if (strpos($result, "0 results found") !== false) {
+        $search_term = refine_title($search_term);
+
         echo "<div class='jumbotron'>
-        			<h1>Add New Page Named: <label style='color:blue'><a href=\"edit_page.php?title=$search_term&new=true\">$search_term</html></labek></h1>
+        			<h1>Add New Page Named: <label style='color:blue'><a href=\"edit_page.php?title=$search_term\">$search_term</html></labek></h1>
 			      </div>";
         $button_text = "Create Page";
-        echo "<a href=\"edit_page.php?title=$search_term&new=true\"><button type=\"submit\"
+        echo "<a href=\"edit_page.php?title=$search_term\"><button type=\"submit\"
 					class=\"btn btn-md btn-danger\">$button_text</button></a>";
     }
 	?>

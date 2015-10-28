@@ -50,7 +50,7 @@
 
        <form class="navbar-form text-center" action="search_results.php"  method="get" onsubmit="if (document.getElementById('text').value.length < 1) return false;">
          <div class="input-group">
-          <input type="text" id="text" name="title" class="form-control" placeholder="Search..." style="width:500px">
+          <input type="text" id="text" name="search" class="form-control" placeholder="Search..." style="width:500px">
           <span class="input-group-btn">
             <button class="btn btn-default" type="submit">
               <span class="glyphicon glyphicon-search" aria-hidden="true"></span>

@@ -46,7 +46,7 @@
 
        <form class="navbar-form text-center" action="search_results.php"  method="get" onsubmit="if (document.getElementById('text').value.length < 1) return false;">
          <div class="input-group">
-          <input type="text" id="text" name="title" class="form-control" placeholder="Search..." style="width:500px">
+          <input type="text" id="text" name="search" class="form-control" placeholder="Search..." style="width:500px">
           <span class="input-group-btn">
             <button class="btn btn-default" type="submit">
               <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -62,7 +62,7 @@
 </nav>
 
 <div class="container theme-showcase" role="main">
-	
+
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
@@ -112,10 +112,11 @@
 
     $title = $_GET['title'];
 //////////////////////////////////////////////////////////////////////////////
-    $raw_content = MessageHandler::send_get_raw_msg($title);
+    $raw_body = MessageHandler::send_get_raw_msg($title);
 
-    if($raw_content && $raw_content == "NULL"){
-      $raw_content = "";
+    // app returns NULL if there is no body or article does not exist
+    if($raw_body && $raw_body == "NULL"){
+      $raw_body = "";
     }
 
     // $db_manager = DataManager::get_instance();
@@ -133,8 +134,8 @@
     </div>
 
     <label for="body">Body</label>
+    <textarea name="body" class="form-control" rows="18" style="resize: none;" data-role="none">$raw_body</textarea>
 
-    <textarea name="content" class="form-control" rows="18" style="resize: none;" data-role="none">$raw_content</textarea>
       <div class="row">
         <div class="col-md-8"><br>
           <button type="submit" class="btn btn-md btn-primary">Save Page</button>
