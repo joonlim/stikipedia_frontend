@@ -11,7 +11,7 @@
 <title>Stikipedia - Article</title>
 
 <!-- FAVICON -->
-<link href="fedoracon.ico" rel="icon" type="image/x-icon">
+<link href="img/fedoracon.ico" rel="icon" type="image/x-icon">
 
 <!-- Bootstrap core CSS -->
 <link href="./css/bootstrap.min.css" rel="stylesheet">
