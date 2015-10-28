@@ -14,9 +14,9 @@
 	include ("rpc_client.php");
 
 	// The file that contains the ip of the message broker in the first line.
-	#static $file = "/var/www/html/stiki/front_end/API/broker.txt"; // on Joon's computer
+#	static $file = "/var/www/html/stiki/front_end/API/broker.txt"; // on Joon's computer
 	#static $file = "/var/www/html/API/broker.txt";
-	static $file = "/var/www/html/grading/API/broker.txt";
+	static $file = "/var/www/html/stiki/front_end/grading/API/broker.txt";
 
 	class MessageHandler {
 
@@ -126,6 +126,18 @@
 			return $response;
 		}
 
+	}
+
+	// Other functions
+	/**
+	 * Refines title to replace underscores with spaces and to be lowercase the
+	 * first letter of every word.
+	 */
+	function refine_title($string) {
+
+		$string = ucwords(strtolower($string));
+
+		return preg_replace("(_)", " ", $string);
 	}
 
 ?>
