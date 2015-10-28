@@ -63,29 +63,11 @@
 
 <div class="container theme-showcase" role="main">
 
-  <?php 
-
-
-
+  <?php
   // Start of script
   include ("API/handle_msg.php");
 
-  $new_body = "";
-
-  if ($_SERVER['REQUEST_METHOD'] === 'POST')
-      $new_body = $_POST['body'];
-
   $title = $_GET['title'];
-
-  // Check if there is a POST request to set a new body for an article.
-  if(trim($new_body)) {
-//////////////////////////////////////////////////////////////////////////////
-      // We enter here if the submit button was clicked from the edit page.
-      $status = MessageHandler::send_modify_msg($title, $new_body);
-      // $db_manager = DataManager::get_instance();
-      // $db_manager->set_content($title, $new_body);
-//////////////////////////////////////////////////////////////////////////////
-  }
 
   // Check if there is a GET request to get the body of an article.
   if($title) {

@@ -1,3 +1,60 @@
+<?php
+  // Before content loads, check if there has been a POST request to either
+  // rename content or set the body. If yes, we must do the desired request
+  // and then redirect to the article page.
+
+  include ("API/handle_msg.php");
+
+  $title;
+
+  if($_GET['title'])
+    $title = $_GET['title'];
+
+  $new_body;
+  $new_title;
+
+  if ($_SERVER['REQUEST_METHOD'] === 'POST')
+  {
+    $new_body = $_POST['body'];
+
+    // assume body has been changed and set new body here.
+
+    // Check if there is a POST request to set a new body for an article.
+    if(trim($new_body)) {
+//////////////////////////////////////////////////////////////////////////////
+      // We enter here if the submit button was clicked from the edit page.
+      $status = MessageHandler::send_modify_msg($title, $new_body);
+      // $db_manager = DataManager::get_instance();
+      // $db_manager->set_content($title, $new_body);
+//////////////////////////////////////////////////////////////////////////////
+    }
+
+    $new_title = $_POST['new_title'];
+
+    $failed = "";
+
+    if ($new_title !== $title)
+    {
+      // Title has been changed.
+      // Must call rename functionality
+
+      // Delete this title
+      // Create/update new title
+      $status = MessageHandler::send_rename_msg($title, $new_title);
+
+      if (strpos($status,'FAILED') !== false) {
+        $failed = "&failed=true";
+      }
+    }
+
+    if ($failed === "&failed=true")
+      header( "Location: article.php?title=$title$failed" ) ;
+    else
+      header( "Location: article.php?title=$new_title" ) ;
+  }
+
+?>
+
 <!DOCTYPE html>
 <!-- saved from url=(0040)http://getbootstrap.com/examples/theme/# -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -106,11 +163,11 @@
   </nav>
 
   <?php
-  include ("API/handle_msg.php");
 
   if($_GET['title']) {
 
     $title = $_GET['title'];
+    $title = refine_title($title);
 //////////////////////////////////////////////////////////////////////////////
     $raw_body = MessageHandler::send_get_raw_msg($title);
 
@@ -126,11 +183,11 @@
 
   /* Dynamic edit page */
   $html = <<<STR
-  <form action="article.php?title=$title" method="post">
+  <form action="edit_page.php?title=$title" method="post">
 
     <div class="form-group">
       <label for="title">Title</label>
-      <input type="text" class="form-control" id="title" value="$title" readonly>
+      <input type="text" name="new_title" class="form-control" id="title" value="$title" >
     </div>
 
     <label for="body">Body</label>

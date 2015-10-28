@@ -135,9 +135,16 @@
 	 */
 	function refine_title($string) {
 
-		$string = ucwords(strtolower($string));
+		// replace underscores with spaces
+		$string = preg_replace("(_)", " ", $string);
 
-		return preg_replace("(_)", " ", $string);
+		// replace '%20' with space
+		$string = preg_replace("(%20)", " ", $string);
+
+		// replace multiple spaces with single space
+		$string = preg_replace("([ ]{2,})", " ", $string);
+
+		return ucwords(strtolower($string));
 	}
 
 ?>
