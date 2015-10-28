@@ -28,7 +28,7 @@
 
 	// process client request (via URL)
 	header("Content-Type:application/json");
-	// include("connection.php");
+	include("connection.php");
 	include ("handle_msg.php");
 
     $post_data = "";
@@ -104,8 +104,8 @@
 		// }
 
 		// deliver_response($status, $title, $reason);
-		$msg = MessageHandler::send_modify_msg($title, $body);
-		echo $msg;
+		//$msg = MessageHandler::send_modify_msg($title, $body);
+		//echo $msg;
 //////////////////////////////////////////////////////////////////////////////
 	}
 
