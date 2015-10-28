@@ -64,6 +64,17 @@
 <div class="container theme-showcase" role="main">
 
   <?php 
+
+    /**
+     * Replaces the underscores from a string with spaces.
+     */
+    function refine_title($string) {
+
+      $string = ucwords(strtolower($string));
+
+      return preg_replace("(_)", " ", $string);
+    }
+
   // Start of script
   include ("API/handle_msg.php");
 
@@ -88,7 +99,7 @@
       $content = MessageHandler::send_get_formatted_msg($title);
     
       // // Uppercase first letter of every word in the title.
-      // $refined_title = ucwords($refined_title);
+      $refined_title = refine_title($title);
 
       // $db_manager = DataManager::get_instance();
       // $content = $db_manager->get_body($refined_title);
