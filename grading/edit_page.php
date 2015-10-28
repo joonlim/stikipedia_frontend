@@ -106,12 +106,11 @@
   </nav>
 
   <?php
-  // include "API/connection.php";
   include ("API/handle_msg.php");
 
   if($_GET['title']) {
 
-    $title = ucfirst($_GET['title']);
+    $title = $_GET['title'];
 //////////////////////////////////////////////////////////////////////////////
     $raw_content = MessageHandler::send_get_raw_msg($title);
 

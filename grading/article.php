@@ -66,7 +66,8 @@
   <?php 
 
     /**
-     * Replaces the underscores from a string with spaces.
+     * Refines title to replace underscores with spaces and to be lowercase the
+     * first letter of every word.
      */
     function refine_title($string) {
 
