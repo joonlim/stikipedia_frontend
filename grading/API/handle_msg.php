@@ -128,12 +128,8 @@
 
 	}
 
-	// Other functions
-	/**
-	 * Refines title to replace underscores with spaces and to be lowercase the
-	 * first letter of every word.
-	 */
-	function refine_title($string) {
+
+	function refine_title_no_trim($string) {
 
 		// replace underscores with spaces
 		$string = preg_replace("(_)", " ", $string);
@@ -146,5 +142,15 @@
 
 		return ucwords(strtolower($string));
 	}
+
+	/**
+	 * Refines title to replace underscores with spaces and to be lowercase the
+	 * first letter of every word.
+	 */
+	function refine_title($string) {
+
+		return trim(refine_title_no_trim($string));
+	}
+
 
 ?>

@@ -1,3 +1,21 @@
+<?php
+
+  // Start of script
+  include ("API/handle_msg.php");
+
+  // If the title has whitespace on the side, redirect it to the page without whitespace.
+  $title_in_link = $_GET['title'];
+
+  $good_title = refine_title($title_in_link);
+
+  $bad_title = refine_title_no_trim($title_in_link);
+
+  if ($good_title !== $bad_title)
+  {
+    // redirect to trimmed title
+    header( "Location: article.php?title=$good_title" ) ;
+  }
+?>
 <!DOCTYPE html>
 <!-- saved from url=(0040)http://getbootstrap.com/examples/theme/# -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -64,11 +82,7 @@
 <div class="container theme-showcase" role="main">
 
   <?php
-  // Start of script
-  include ("API/handle_msg.php");
-
   $title = $_GET['title'];
-
   // Check if there is a GET request to get the body of an article.
   if($title) {
 //////////////////////////////////////////////////////////////////////////////
