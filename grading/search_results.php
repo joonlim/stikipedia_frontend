@@ -31,7 +31,7 @@
 
 <?php
 // Start of script
-include ("API/handle_msg.php");
+include ("../API/handle_msg.php");
 
 // Get search term and current working DB
 $search_term = $_GET['search'];

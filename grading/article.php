@@ -1,7 +1,7 @@
 <?php
 
   // Start of script
-  include ("API/handle_msg.php");
+  include ("../API/handle_msg.php");
 
   // If the title has whitespace on the side, redirect it to the page without whitespace.
   $title_in_link = $_GET['title'];

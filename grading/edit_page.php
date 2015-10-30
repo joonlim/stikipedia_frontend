@@ -3,7 +3,7 @@
   // rename content or set the body. If yes, we must do the desired request
   // and then redirect to the article page.
 
-  include ("API/handle_msg.php");
+  include ("../API/handle_msg.php");
 
   $title;
 
