@@ -66,7 +66,6 @@
 			// reach here and we are good!
 		}
 
-
 		// if (!$db_manager->exists($title)) {
 
 		// 	// Check if we have a GET title request also.
@@ -99,8 +98,8 @@
 		// }
 
 		// deliver_response($status, $title, $reason);
-		//$msg = MessageHandler::send_modify_msg($title, $body);
-		//echo $msg;
+		$msg = MessageHandler::send_modify_msg($title, $body);
+		echo $msg;
 //////////////////////////////////////////////////////////////////////////////
 	}
 
