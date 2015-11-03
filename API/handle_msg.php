@@ -4,12 +4,12 @@
 	 */
 
 	// Queue names
-	$queue_search = "front_search";				// queue for search results
-	$queue_get_raw = "front_get_raw";				// queue for get raw article body
-	$queue_get_formatted = "front_get_formatted";	// queue for get formatted article body
-	$queue_modify = "front_modify";				// queue for modify/add article
-	$queue_rename = "front_rename";				// queue for rename article
-	$queue_GET = "front_GET_REST";
+	$queue_search = "FRONT_SEARCH";				// queue for search results
+	$queue_get_raw = "FRONT_GET_RAW";				// queue for get raw article body
+	$queue_get_formatted = "FRONT_GET_FORMATTED";	// queue for get formatted article body
+	$queue_modify = "FRONT_MODIFY";				// queue for modify/add article
+	$queue_rename = "FRONT_RENAME";				// queue for rename article
+	$queue_GET = "FRONT_REST_GET";
 
 	include ("rpc_client.php");
 
