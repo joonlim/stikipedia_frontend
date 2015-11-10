@@ -1,4 +1,4 @@
 Options +FollowSymlinks
 RewriteEngine on
 
-RewriteRule (?=^(['.a-zA-Z0-9()\:_-]*)$)(?=^((?!\.php).)*$) index.php?title=$1 [QSA,NC]
+RewriteRule (?=^([*&%@!?$";+=\/~`,'.a-zA-Z0-9()\:_-]*)$)(?=^((?!\.php).)*$) index.php?title=$1 [QSA,NC]
