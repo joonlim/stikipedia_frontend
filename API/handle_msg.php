@@ -18,12 +18,7 @@
 	#static $file = "/var/www/html/API/broker.txt";
 	static $file = "/var/www/html/API/broker.txt";
 
-	$rpcClient_search = new RpcClient($queue_search, $file);
-	$rpcClient_get_raw = new RpcClient($queue_get_raw, $file);
-	$rpcClient_get_formatted = new RpcClient($queue_get_formatted, $file);
-	$rpcClient_modify = new RpcClient($queue_modify, $file);
-	$rpcClient_rename = new RpcClient($queue_rename, $file);
-	$rpcClient_GET = new RpcClient($queue_GET, $file);
+	$rpcClient = new RpcClient($file);
 
 	class MessageHandler {
 
@@ -35,9 +30,9 @@
 		 *
 		 */
 		public static function send_search_msg($search_term) {
-			global $rpcClient_search;
+			global $queue_search;
 
-			return MessageHandler::basic_send_msg($rpcClient_search, $search_term);
+			return MessageHandler::basic_send_msg($queue_search, $search_term);
 		}
 
 		/**
@@ -49,9 +44,9 @@
 		 *                         else the empty string.
 		 */
 		public static function send_get_raw_msg($title) {
-			global $rpcClient_get_raw;
+			global $queue_get_raw;
 
-			return MessageHandler::basic_send_msg($rpcClient_get_raw, $title);
+			return MessageHandler::basic_send_msg($queue_get_raw, $title);
 		}
 
 		/**
@@ -63,9 +58,9 @@
 		 *                         else the empty string.
 		 */
 		public static function send_get_formatted_msg($title) {
-			global $rpcClient_get_formatted;
+			global $queue_get_formatted;
 
-			return MessageHandler::basic_send_msg($rpcClient_get_formatted, $title);
+			return MessageHandler::basic_send_msg($queue_get_formatted, $title);
 		}
 
 		/**
@@ -81,7 +76,7 @@
 		 *                            FAILED
 		 */
 		public static function send_modify_msg($title, $new_body) {
-			global $rpcClient_modify;
+			global $queue_modify;
 
 			// send msg in form { "title":$title, "body":$new_body }
 		    $data = array(
@@ -89,11 +84,11 @@
 		        "body" => $new_body
 		    );
 
-		    return MessageHandler::basic_send_msg($rpcClient_modify, json_encode($data));
+		    return MessageHandler::basic_send_msg($queue_modify, json_encode($data));
 		}
 
 		public static function send_rename_msg($old_title, $new_title) {
-			global $rpcClient_rename;
+			global $queue_rename;
 
 			// send msg in form 
 			// { "old_title":$old_title, "new_title":$new_title }
@@ -104,7 +99,7 @@
 		        "new_title" => $new_title
 		    );
 
-		    return MessageHandler::basic_send_msg($rpcClient_rename, json_encode($data));
+		    return MessageHandler::basic_send_msg($queue_rename, json_encode($data));
 		}
 
 		/**
@@ -115,16 +110,17 @@
 		 * @return [string]        {"title":"$title","body":"$body"}
 		 */
 		public static function send_GET_msg($title) {
-			global $rpcClient_GET;
+			global $queue_GET;
 
-			return MessageHandler::basic_send_msg($rpcClient_GET, $title);
+			return MessageHandler::basic_send_msg($queue_GET, $title);
 		}
 
 		/**
 		 * Basic send message and get response without a calling function
 		 */
-		private static function basic_send_msg($rpcClient, $msg) {
+		private static function basic_send_msg($routing_key, $msg) {
 			global $file;
+			global $rpcClient;
 
 			$response = $rpcClient->call($routing_key, $msg, '');
 
