@@ -18,8 +18,6 @@
 	#static $file = "/var/www/html/API/broker.txt";
 	static $file = "/var/www/html/API/broker.txt";
 
-	$rpcClient = new RpcClient($file);
-
 	class MessageHandler {
 
 		/**
@@ -120,7 +118,8 @@
 		 */
 		private static function basic_send_msg($routing_key, $msg) {
 			global $file;
-			global $rpcClient;
+
+			$rpcClient = new RpcClient($file);
 
 			$response = $rpcClient->call($routing_key, $msg, '');
 

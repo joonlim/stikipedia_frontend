@@ -50,7 +50,7 @@
 			$broker_ip = $lines[0];
             $this->broker_ip = $broker_ip;
 			// create a connection to the server
-			$connection = new AMQPStreamConnection($broker_ip, 5672, 'guest', 'guest');
+			$connection = new AMQPStreamConnection($broker_ip, 5672, 'guest', 'guest', '/', false, 'AMQPLAIN', null, 'en_US', 2000, 2000, null, false, 2000);
 			return $connection;
 		}
 
